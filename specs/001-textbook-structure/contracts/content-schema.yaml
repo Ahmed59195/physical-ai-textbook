@@ -1,0 +1,158 @@
+# Chapter Frontmatter Schema
+# Validates YAML frontmatter in chapter Markdown files
+
+$schema: http://json-schema.org/draft-07/schema#
+title: Chapter Frontmatter
+description: Schema for validating chapter metadata (YAML frontmatter)
+type: object
+
+required:
+  - id
+  - title
+  - description
+  - module
+  - learningObjectives
+  - keywords
+
+properties:
+  _schemaVersion:
+    type: string
+    description: Schema version for migration tracking
+    default: "1.0"
+
+  id:
+    type: string
+    description: Unique chapter identifier
+    pattern: ^(week-[0-9]{2}|front-matter-.+|capstone|appendix-.+)$
+    examples:
+      - "week-01"
+      - "front-matter-introduction"
+      - "capstone"
+      - "appendix-hardware-setup"
+
+  title:
+    type: string
+    description: Human-readable chapter title
+    minLength: 10
+    maxLength: 100
+    examples:
+      - "Physical AI Overview: From Digital to Embodied Intelligence"
+
+  description:
+    type: string
+    description: Brief chapter summary for SEO and RAG indexing
+    minLength: 50
+    maxLength: 300
+    examples:
+      - "Introduction to Physical AI, its distinction from digital AI, and real-world applications in humanoid robotics."
+
+  module:
+    type: string
+    description: Parent module name
+    enum:
+      - "Front Matter"
+      - "Module 1: Foundations"
+      - "Module 2: Perception & Control"
+      - "Module 3: Intelligence & Planning"
+      - "Module 4: Deployment & Integration"
+      - "Capstone"
+      - "Appendices"
+
+  week:
+    type: [integer, "null"]
+    description: Week number (1-13) or null for non-weekly content
+    minimum: 1
+    maximum: 13
+    examples: [1, 5, 13, null]
+
+  learningObjectives:
+    type: array
+    description: Measurable learning outcomes (3-5 items)
+    minItems: 3
+    maxItems: 5
+    items:
+      type: string
+      minLength: 20
+      examples:
+        - "Define Physical AI and differentiate it from purely digital AI systems"
+        - "Identify key challenges in embodied intelligence"
+
+  prerequisites:
+    type: array
+    description: Required prior chapters (chapter IDs)
+    items:
+      type: string
+      pattern: ^(week-[0-9]{2}|front-matter-.+)$
+    default: []
+    examples:
+      - ["week-01", "week-02"]
+
+  keywords:
+    type: array
+    description: Search and RAG indexing keywords (minimum 3)
+    minItems: 3
+    items:
+      type: string
+      minLength: 2
+    examples:
+      - ["physical-ai", "embodied-intelligence", "robotics", "sim-to-real"]
+
+  difficulty:
+    type: string
+    description: Content difficulty level
+    enum: ["beginner", "intermediate", "advanced"]
+    default: "beginner"
+
+  estimatedTime:
+    type: integer
+    description: Reading and exercise time in minutes
+    minimum: 15
+    maximum: 300
+    default: 90
+    examples: [60, 90, 120]
+
+  lastUpdated:
+    type: string
+    description: Last modification date (ISO 8601)
+    format: date
+    examples: ["2025-12-31"]
+
+  # Optional: Code examples metadata
+  codeExamples:
+    type: array
+    description: Code snippets included in this chapter
+    items:
+      type: object
+      required: [filename, language]
+      properties:
+        filename:
+          type: string
+        language:
+          type: string
+          enum: ["python", "bash", "yaml", "cpp", "xml", "json"]
+        tested:
+          type: boolean
+          default: false
+        downloadable:
+          type: boolean
+          default: true
+
+  # Optional: Diagram metadata
+  diagrams:
+    type: array
+    description: Diagrams included in this chapter
+    items:
+      type: object
+      required: [filename, altText]
+      properties:
+        filename:
+          type: string
+        altText:
+          type: string
+          minLength: 50
+          maxLength: 100
+        format:
+          type: string
+          enum: ["svg", "png", "jpg", "webp"]
+
+additionalProperties: false

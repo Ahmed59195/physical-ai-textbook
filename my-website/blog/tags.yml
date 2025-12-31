@@ -1,0 +1,54 @@
+physical-ai:
+  label: Physical AI
+  permalink: /physical-ai
+  description: Articles about Physical AI and embodied intelligence
+
+robotics:
+  label: Robotics
+  permalink: /robotics
+  description: Robotics technology and applications
+
+humanoid-robotics:
+  label: Humanoid Robotics
+  permalink: /humanoid-robotics
+  description: Humanoid robots and bipedal systems
+
+simulation:
+  label: Simulation
+  permalink: /simulation
+  description: Robot simulation environments and tools
+
+sim-to-real:
+  label: Sim-to-Real
+  permalink: /sim-to-real
+  description: Transferring policies from simulation to real robots
+
+introduction:
+  label: Introduction
+  permalink: /introduction
+  description: Introductory content and getting started guides
+
+industry:
+  label: Industry
+  permalink: /industry
+  description: Industry landscape and commercial applications
+
+tesla-optimus:
+  label: Tesla Optimus
+  permalink: /tesla-optimus
+  description: Tesla's Optimus humanoid robot
+
+figure-ai:
+  label: Figure AI
+  permalink: /figure-ai
+  description: Figure AI humanoid robots
+
+isaac-sim:
+  label: Isaac Sim
+  permalink: /isaac-sim
+  description: NVIDIA Isaac Sim robotics simulator
+
+gazebo:
+  label: Gazebo
+  permalink: /gazebo
+  description: Gazebo robotics simulator

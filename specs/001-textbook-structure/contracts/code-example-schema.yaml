@@ -1,0 +1,90 @@
+# Code Example Schema
+# Validates code example metadata
+
+$schema: http://json-schema.org/draft-07/schema#
+title: Code Example
+description: Schema for code snippet metadata
+type: object
+
+required:
+  - filename
+  - language
+  - description
+
+properties:
+  filename:
+    type: string
+    description: Code file name
+    pattern: ^[\w\-\.]+$
+    examples:
+      - "ros2_publisher.py"
+      - "launch_simulation.sh"
+
+  language:
+    type: string
+    description: Programming/scripting language
+    enum:
+      - "python"
+      - "bash"
+      - "yaml"
+      - "cpp"
+      - "xml"
+      - "json"
+      - "dockerfile"
+    examples: ["python", "bash"]
+
+  description:
+    type: string
+    description: What this code does
+    minLength: 20
+    maxLength: 200
+    examples:
+      - "Basic ROS 2 publisher that sends Hello World messages at 1 Hz"
+
+  dependencies:
+    type: array
+    description: Required packages/modules
+    items:
+      type: string
+    default: []
+    examples:
+      - ["rclpy", "std_msgs"]
+      - ["numpy", "torch", "cv2"]
+
+  environment:
+    type: string
+    description: Execution environment requirements
+    minLength: 10
+    maxLength: 100
+    examples:
+      - "Ubuntu 22.04 + ROS 2 Humble"
+      - "NVIDIA Isaac Sim 2023.1"
+
+  testable:
+    type: boolean
+    description: Can this code be automatically validated?
+    default: true
+
+  tested:
+    type: boolean
+    description: Has this code been manually tested?
+    default: false
+
+  downloadable:
+    type: boolean
+    description: Is this available as downloadable file?
+    default: true
+
+  codeContent:
+    type: string
+    description: Full code content
+    minLength: 10
+
+  setupInstructions:
+    type: string
+    description: How to set up environment and run this code
+    minLength: 50
+    examples:
+      - "1. Install ROS 2 Humble\\n2. Create workspace\\n3. Copy file to src/\\n4. Run: python3 ros2_publisher.py"
+
+additionalProperties: false

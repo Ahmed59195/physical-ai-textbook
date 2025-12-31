@@ -1,0 +1,61 @@
+# Personalization Profile Schema
+# Validates learner personalization configuration (bonus feature)
+
+$schema: http://json-schema.org/draft-07/schema#
+title: Personalization Profile
+description: Schema for adaptive content configuration based on learner background
+type: object
+
+required:
+  - learnerBackground
+
+properties:
+  learnerBackground:
+    type: string
+    description: Learner's primary technical focus
+    enum:
+      - "ml-focused"
+      - "controls-focused"
+      - "hardware-focused"
+      - "generalist"
+    examples: ["ml-focused", "generalist"]
+
+  skipSections:
+    type: array
+    description: H2 section headings to fast-track (brief summary only)
+    items:
+      type: string
+    default: []
+    examples:
+      - ["Control Theory Basics", "PID Tuning"]
+
+  deepDiveSections:
+    type: array
+    description: H2 section headings to expand with additional content
+    items:
+      type: string
+    default: []
+    examples:
+      - ["Neural Network Policies", "Reinforcement Learning"]
+
+  preferredSimulator:
+    type: string
+    description: Preferred simulation environment for code examples
+    enum:
+      - "gazebo"
+      - "isaac-sim"
+      - "unity"
+    default: "gazebo"
+
+  hasHardwareAccess:
+    type: boolean
+    description: Does learner have access to Jetson Orin or equivalent hardware?
+    default: false
+
+  languagePreference:
+    type: string
+    description: Preferred language for content
+    enum: ["en", "ur"]
+    default: "en"
+
+additionalProperties: false
